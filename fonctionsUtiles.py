@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 sns.set_theme()
 
-def cut_dataframe(df, col_name, step, matrice = []):
+def cut_dataframe(df, col_name, step = 0, matrice = []):
     min_value = df[col_name].min()
     max_value = df[col_name].max()
     if matrice == []:

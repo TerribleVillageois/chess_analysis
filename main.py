@@ -7,8 +7,8 @@ import seaborn as sns
 
 pd.set_option('display.max_columns', None)
 
-df = pd.read_pickle("Lichess_Test.pkl")
-#df = chess_fun.df_from_png("D:/lichessGames/lichess_db_standard_rated_2021-12.pgn", "Lichess_Test.pkl", 30000)
+#df = pd.read_pickle("Lichess_Test.pkl")
+df = chess_fun.df_from_png("D:/lichessGames/lichess_db_standard_rated_2021-12.pgn", "Lichess_Test.pkl", 5000)
 
 df_Blitz = df[df["Event type"] == "Rated Bullet game"]
 df_Rapid = df[df["Event type"] == "Rated Rapid game"]
@@ -26,7 +26,7 @@ X = sm.add_constant(df_castle[['Player elo', "Rating diff"]])
 
 logit_model = sm.Logit(y, X)
 result = logit_model.fit()
-print(result.summary())
+print(result.summary2())
 
 
 from sklearn.linear_model import LogisticRegression
@@ -41,11 +41,11 @@ y_pred = logreg.predict(X_test)
 print("La prédiction est correct à {:.2f}".format(logreg.score(X_test,y_test)))
 
 
-# data, matrice = utile.cut_dataframe(df_castle,"Player elo", 100)
-# data2, matrice2 = utile.cut_dataframe(df_castle_Rapid,"Player elo", 500, np.arange(300, 2500, 100))
-# data3, matrice3 = utile.cut_dataframe(df_castle_Blitz,"Player elo", 500, np.arange(300, 2500, 100))
+data, matrice = utile.cut_dataframe(df_castle,"Player elo", 100)
+data2, matrice2 = utile.cut_dataframe(df_castle_Rapid,"Player elo", 500, np.arange(300, 2500, 100))
+data3, matrice3 = utile.cut_dataframe(df_castle_Blitz,"Player elo", 500, np.arange(300, 2500, 100))
 #
-# plt.plot(matrice,data["Castle"],'-+')
+plt.plot(matrice,data["Castle"],'-+')
 # plt.plot(matrice2,data2["Castle"],'-+', label = "Rapid")
 # plt.plot(matrice3,data3["Castle"],'-+', label = "Blitz")
 # # sns.catplot(x = matrice, y = data["Castle"],hue = data["Event type"])
